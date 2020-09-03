@@ -1,0 +1,56 @@
+McKenna Chun
+Professor Igor Steinmacher
+CS-499
+9/2/2020
+Git Assignment
+
+Describe what is the output of the following commands
+git branch
+git branch lists all the branches available and shows which branch is currently selected, when doing it at the start it shows that the master branch is selected
+
+git checkout BRANCH_NAME
+git checkout feature-foo switches the focus to the inputted branch, in this case I have selected feature-foo which is a branch of master, so the focus is now on the feature-foo branch
+
+git log --decorate
+git log --decorate displays recent commits to the selected branch, starting with the newest on top and becomes older as it descends. In this specific feature-foo branch, the 3 most recent commits were: Adding header of method foo(), Adding class A skeleton, and Creating all files (all empty)
+
+
+Try git log --graph --all. What do you see?
+git log --graph -all shows a visual representation of the branches, with different colored lines on the left being used to represent different connecting commits. For instance the commits “Adding class B skeleton” and “Adding header of method foo()” are connected to each other by a red line but “Adding class A skeleton” is not connected to them and has its own green line.
+ 
+Use git diff BRANCH_NAME to view the differences from a branch and the current branch. Summarize the difference from master to the other branch.
+The difference between the master branch and the feature-foo branch is that while they both have a public class A, the master branch does not have a foo() method header. Also the master branch does have a B class, whereas feature-foo does not.
+ 
+Write a command sequence to merge the non-master branch into master
+git checkout master
+git merge feature-foo
+ 
+Write a command (or sequence) to (i) create a new branch called math (from the master) and (ii) change to this branch
+git branch math
+git checkout math
+ 
+Edit B.java adding the following source code below the content you have there
+System.out.println("I know math, look:")
+System.out.println(2+2)
+ 
+Write a command (or sequence) to commit your changes
+git commit -a -m “Added print statements to B.java”
+ 
+Change back to the master branch and change B.java adding the following source code (commit your change to master):
+System.out.println("Hello World")
+ 
+Write a command sequence to merge the math branch into master and describe what happened
+git checkout master
+git merge math
+This caused a merge conflict between master and math, because math has “I know math, look: 2+2” print statements, they conflict with the print statement “Hello World” in the master branch. Therefore the merge is stuck with the conflict and the pointer is now pointing at the unresolved merge.
+ 
+Write a set of commands to abort the merge
+git merge --abort
+ 
+Now repeat item 9, but proceed with the manual merge (Editing B.java). All implemented functions are needed. Explain your procedure
+With the error again, I manually edit the B.java while the pointer is at master | MERGING , I remove the symbols like < = and > that point to the math branch as the head and then used git commit to commit the new edit.
+Write a command (or set of commands) to proceed with the merge and make master branch up-to-date
+git checkout master
+git merge math
+git commit -a -m “Fixed merge conflict”
+Now the master branch is up to date with the math branches additions.
